@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 import User from "./User";
 
 interface StepThreeProps {
@@ -15,6 +16,8 @@ const StepThree: React.FC<StepThreeProps> = ({
   setStep,
 }) => {
 
+  const router = useRouter();
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUser((prevData) => ({ ...prevData, [name]: value }));
@@ -27,6 +30,7 @@ const StepThree: React.FC<StepThreeProps> = ({
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log(user);
+    router.push("/");
   };
 
   return (

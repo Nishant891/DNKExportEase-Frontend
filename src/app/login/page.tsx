@@ -1,8 +1,12 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { CheckUser } from "../components/User";
 
 const login = () => {
+
+  const router = useRouter();
+
   const [checkUser, setCheckUser] = useState<CheckUser>({
     email: "",
     password: "",
@@ -19,6 +23,7 @@ const login = () => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log(checkUser);
+    router.push("/");
   };
 
   return (
@@ -62,7 +67,7 @@ const login = () => {
           </button>
         </div>
         <div className="w-full flex justify-center text-center items-center mb-2 text-slate-600 underline text-sm hover:cursor-pointer hover:text-[#447fed]">
-          <p>Don't have an account? Signup</p>
+          <p onClick={() => (router.push("/signup"))}>Don't have an account? Signup</p>
         </div>
       </form>
     </div>

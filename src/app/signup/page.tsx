@@ -1,11 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import MultiStepForm from "../components/MultiStepForm";
+import { useRouter } from "next/navigation";
+import StepZero from "../components/StepZero";
 import User from "../components/User";
 
 const signup = () => {
 
+  const router = useRouter();
+
   const [user, setUser] = useState<User>({
+    type : "",
     username : "",
     email : "",
     password : "",
@@ -16,8 +20,6 @@ const signup = () => {
     IEC : "",
     GST : ""
   }); 
-
-  const [step, setStep] = useState(1);
 
   return (
     <div className="w-screen h-screen flex justify-center items-center overflow-hidden">
@@ -31,11 +33,10 @@ const signup = () => {
             />
           </button>
           <h1 className="text-2xl text-slate-600 text-center">SIGN UP</h1>
-          <p className="text-xl text-slate-600 text-center">{`Step ${step} of 3`}</p>
         </div>
-        <MultiStepForm user={user} setUser={setUser} step={step} setStep={setStep}/>
+        <StepZero user={user} setUser={setUser}/>
         <div className="w-full flex justify-center text-center items-center mb-2 text-slate-600 underline text-sm hover:cursor-pointer hover:text-[#447fed]">
-          <p>Already have an account? Login</p>
+          <p onClick={() => (router.push("/login"))} >Already have an account? Login</p>
         </div>
       </form>
     </div>

@@ -1,9 +1,10 @@
 
 interface User {
+    type: string;
     username: string;
     email: string;
     password: string;
-    confirmPassword: string
+    confirmPassword: string;
     country: string;
     state: string;
     district: string;
