@@ -5,8 +5,6 @@ import { GiArchiveRegister } from "react-icons/gi";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import AvatarComponent from "./Avatar";
-import { useState } from "react";
-
 interface NavbarProps {
   loggedIn: boolean;
 }
@@ -28,7 +26,7 @@ const Navbar : React.FC<NavbarProps> = ({loggedIn}) => {
             )
           )}
         </div>
-        <div className="w-2/5 h-full flex flex-row justify-evenly items-center">
+        <div className={`${loggedIn ? 'w-1/6' : 'w-2/6'} h-full flex flex-row justify-evenly items-center`}>
           {!loggedIn ? <div className="w-[40vh] h-[8vh] flex flex-row justify-evenly items-center">
             <button
               onClick={() => router.push("/signup")}
