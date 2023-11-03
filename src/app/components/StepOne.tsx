@@ -18,6 +18,10 @@ const StepOne: React.FC<StepOneProps> = ({ user, setUser, step, setStep }) => {
     setStep(step + 1);
   };
 
+  const handlePrevClick = () => {
+    setStep(step - 1);
+  };
+
   return (
     <>
       <div className="w-full flex justify-center items-center">
@@ -64,14 +68,23 @@ const StepOne: React.FC<StepOneProps> = ({ user, setUser, step, setStep }) => {
           className="border border-slate-500 rounded-md w-4/5 h-10 p-2 focus:outline-blue-400  placeholder:text-slate-600"
         ></input>
       </div>
-      <div className="w-full flex justify-center items-center">
-        <button
-          onClick={handleNextClick}
-          type="submit"
-          className="h-10 bg-[#3bb07d] text-white text-center w-4/5 rounded-md disabled:opacity-50 disabled:pointer-events-none"
-        >
-          NEXT
-        </button>
+      <div className="w-full flex justify-evenly items-center">
+        <div className="w-4/5 flex justify-between items-center">
+          <button
+            onClick={handlePrevClick}
+            type="submit"
+            className="h-10 bg-[#3bb07d] text-white text-center w-2/5 rounded-md disabled:opacity-50 disabled:pointer-events-none"
+          >
+            PREV
+          </button>
+          <button
+            onClick={handleNextClick}
+            type="submit"
+            className="h-10 bg-[#3bb07d] text-white text-center w-2/5 rounded-md disabled:opacity-50 disabled:pointer-events-none"
+          >
+            NEXT
+          </button>
+        </div>
       </div>
     </>
   );

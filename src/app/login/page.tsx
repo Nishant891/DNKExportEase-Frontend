@@ -2,8 +2,10 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CheckUser } from "../components/User";
+import Axios from "axios";
 
 const login = () => {
+  Axios.defaults.withCredentials = true;
 
   const router = useRouter();
 
@@ -20,10 +22,22 @@ const login = () => {
     }));
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log(checkUser);
-    router.push("/");
+    await new Promise((resolve) => {
+      Axios.post("http://localhost:8000/login", {
+        email: checkUser.email,
+        password: checkUser.password,
+      })
+        .then((response) => {
+          console.log(response);
+          router.push("/");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
   };
 
   return (
@@ -67,7 +81,9 @@ const login = () => {
           </button>
         </div>
         <div className="w-full flex justify-center text-center items-center mb-2 text-slate-600 underline text-sm hover:cursor-pointer hover:text-[#447fed]">
-          <p onClick={() => (router.push("/signup"))}>Don't have an account? Signup</p>
+          <p onClick={() => router.push("/signup")}>
+            Don't have an account? Signup
+          </p>
         </div>
       </form>
     </div>

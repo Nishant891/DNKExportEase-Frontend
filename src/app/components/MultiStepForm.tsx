@@ -3,6 +3,7 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import User from "./User";
+import ClientSignUp from "./ClientSignUp";
 
 
 interface MultiStepFormProps {
@@ -15,7 +16,7 @@ interface MultiStepFormProps {
 
 const MultiStepForm: React.FC<MultiStepFormProps> = ({ user, setUser, step, setStep, isClient })=> {
   return (
-    isClient ? null : (<>{step === 1 ? (<StepOne user={user} setUser={setUser} step={step} setStep={setStep}/>) : null}
+    isClient ? <ClientSignUp user={user} setUser={setUser} step={step} setStep={setStep}/>  : (<>{step === 1 ? (<StepOne user={user} setUser={setUser} step={step} setStep={setStep}/>) : null}
       {step === 2 ? (<StepTwo user={user} setUser={setUser} step={step} setStep={setStep}/>) : null}
       {step === 3 ? (<StepThree user={user} setUser={setUser} step={step} setStep={setStep}/>) : null}</>)
   );

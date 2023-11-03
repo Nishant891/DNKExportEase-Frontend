@@ -1,6 +1,8 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import User from "./User";
+import Axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
 
 interface StepThreeProps {
   user: User;
@@ -15,8 +17,11 @@ const StepThree: React.FC<StepThreeProps> = ({
   step,
   setStep,
 }) => {
+  Axios.defaults.withCredentials = true;
 
   const router = useRouter();
+
+  const id = uuidv4();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,10 +32,31 @@ const StepThree: React.FC<StepThreeProps> = ({
     setStep(step - 1);
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log(user);
-    router.push("/");
+    await new Promise((resolve) => {
+      Axios.post("http://localhost:8000/signup", {
+        id: id, 
+        type: user.type,
+        username: user.username,
+        email: user.email,
+        password: user.password,
+        country: user.country,
+        state: user.state,
+        district: user.district,
+        IEC: user.IEC,
+        GST: user.GST,
+      })
+      .then((response) => {
+        console.log(response);
+        router.push("/");
+      })
+      .catch((error) =>{
+        console.log(error);
+      });
+      setTimeout(resolve, 1000);
+    })
   };
 
   return (
